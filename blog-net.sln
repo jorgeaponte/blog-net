@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlogNet.Api", "API\BlogNet.Api.csproj", "{67A02F20-E5ED-462D-AA56-FB5A8A2D9FB3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlogNet.Web", "Web\BlogNet.Web\BlogNet.Web.csproj", "{9775D2E6-2AAC-41A7-810D-310858C58693}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{67A02F20-E5ED-462D-AA56-FB5A8A2D9FB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{67A02F20-E5ED-462D-AA56-FB5A8A2D9FB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{67A02F20-E5ED-462D-AA56-FB5A8A2D9FB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{67A02F20-E5ED-462D-AA56-FB5A8A2D9FB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9775D2E6-2AAC-41A7-810D-310858C58693}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9775D2E6-2AAC-41A7-810D-310858C58693}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9775D2E6-2AAC-41A7-810D-310858C58693}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9775D2E6-2AAC-41A7-810D-310858C58693}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2CFDDE25-2817-49E0-BE24-4E4311145E05}
+	EndGlobalSection
+EndGlobal
