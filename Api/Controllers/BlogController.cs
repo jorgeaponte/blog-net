@@ -32,6 +32,15 @@ namespace BlogNet.Api.Controllers
             return posts;
         }
 
+        [HttpGet("GetPending")]
+        public async Task<ActionResult<IEnumerable<BlogPost>>> GetPending()
+        {
+            //return _blogContext.Posts;
+
+            var posts = await _blogService.GetPendingAsync();
+            return posts;
+        }
+
         // GET api/<BlogController>/5
         [HttpGet("{id}")]
         public async Task<ActionResult<BlogPost>> Get(int id) {

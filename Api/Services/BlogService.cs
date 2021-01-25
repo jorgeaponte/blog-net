@@ -28,8 +28,27 @@ namespace BlogNet.Api.Services
                    UserId = p.UserId,
                    Author = p.Author,
                    Reviewer = p.Reviewer,
-                   Status = p.Status
+                   Status = p.Status,
+                   StatusId = p.StatusId,
+                   ApprovalDate = p.ApprovalDate
                }).ToListAsync();
+            return posts;
+        }
+
+        public async Task<List<BlogPost>> GetPendingAsync()
+        {
+            var posts = await _blogContext.BlogPosts.Where(p => p.StatusId == 1).Select(p => new BlogPost
+            {
+                PostId = p.PostId,
+                Title = p.Title,
+                Content = p.Content,
+                UserId = p.UserId,
+                Author = p.Author,
+                Reviewer = p.Reviewer,
+                Status = p.Status,
+                StatusId = p.StatusId,
+                ApprovalDate = p.ApprovalDate
+            }).ToListAsync();   //ToDo: Mejorar esto del valor quemado (con un Enum)
             return posts;
         }
         public async Task<BlogPost> CreateAsync(BlogPost post)
@@ -68,14 +87,15 @@ namespace BlogNet.Api.Services
         {
             var dbPost = _blogContext.BlogPosts.Find(postStatus.PostId);
             dbPost.StatusId = postStatus.StatusId;            
+            dbPost.ApprovalDate = DateTime.Now;
             await _blogContext.SaveChangesAsync();
             return dbPost;
         }
 
-        public async Task<BlogPost> GetByIdAsync(int postId)
+        public async Task<BlogPost> GetByIdAsync(int postId)        
         {
-            //var dbPost = await _blogContext.BlogPosts.FindAsync(postId);
-            var dbPost = await _blogContext.BlogPosts.Select(p => new BlogPost
+            
+            var dbPost = await _blogContext.BlogPosts.Where(p => p.PostId == postId).Select(p => new BlogPost
             {
                 PostId = p.PostId,
                 Title = p.Title,

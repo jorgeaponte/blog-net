@@ -15,6 +15,7 @@
                 <th>Reviewer</th>
                 <th>Status</th>
                 <th>Approve/Reject</th>
+                <th>Approve/Reject Date</th>
                 <th>Delete</th>
             </tr>
         </thead>
@@ -33,11 +34,14 @@
                     <a asp-action="ApproveRejectPost" asp-route-postId="@post.PostId" asp-route-statusId="2">Approve</a>
                     <br /><a asp-action="ApproveRejectPost" asp-route-postId="@post.PostId" asp-route-statusId="3">Reject</a>
                 </td>
-                <td>                
-                <form asp-action="DeletePost" method="post">
-                    <input type="hidden" value="@post.PostId" name="PostId" />
-                    <input type="submit" value="X"  />
-                </form>
+                <td>
+                    @post.ApprovalDate
+                </td>
+                <td>
+                    <form asp-action="DeletePost" method="post">
+                        <input type="hidden" value="@post.PostId" name="PostId" />
+                        <input type="submit" value="X" />
+                    </form>
                 </td>
             </tr>
             }

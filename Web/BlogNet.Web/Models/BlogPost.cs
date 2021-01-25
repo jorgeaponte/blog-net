@@ -12,6 +12,7 @@ namespace BlogNet.Web.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public int UserId { get; set; }
+        public DateTime? ApprovalDate { get; set; }
         public int? ReviewerId { get; set; }
         public int StatusId { get; set; }        
         public User Author { get; set; }

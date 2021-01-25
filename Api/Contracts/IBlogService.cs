@@ -10,6 +10,8 @@ namespace BlogNet.Api.Contracts
     public interface IBlogService
     {
         Task<List<BlogPost>> GetAllAsync();
+
+        Task<List<BlogPost>> GetPendingAsync();
         Task<BlogPost> CreateAsync(BlogPost post);
         Task<BlogPost> UpdateAsync(BlogPost post);
         Task<int> DeleteAsync(int postid);
