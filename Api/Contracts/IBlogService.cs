@@ -1,4 +1,5 @@
 ﻿using BlogNet.Api.Models;
+using BlogNet.Web.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,12 +9,15 @@ namespace BlogNet.Api.Contracts
 {
     public interface IBlogService
     {
-        Task<List<Post>> GetAllAsync();
+        Task<List<BlogPost>> GetAllAsync();
+        Task<BlogPost> CreateAsync(BlogPost post);
+        Task<BlogPost> UpdateAsync(BlogPost post);
+        Task<int> DeleteAsync(int postid);
+        Task<BlogPost> ApproveReject(DTOPostStatus postStatus);                
+        Task<BlogPost> GetByIdAsync(int postId);
         /*
-        Task<Post> GetByIdAsync(int postId);
-        Task<Post> CreateAsync(Post post);
-        Task<Post> UpdateAsync(Post post);
         Task<Post> AddCommentAsync(Post post);
+        
         */
     }
 }

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using BlogNet.Web.DTO;
 
 namespace BlogNet.Api.Services
 {
@@ -17,31 +18,76 @@ namespace BlogNet.Api.Services
             _blogContext = context;
         }
 
-        public async Task<List<Post>> GetAllAsync()
+        public async Task<List<BlogPost>> GetAllAsync()
         {
-            /*
-            var posts = await _blogContext.Posts.ToListAsync();
-            return posts;
-            */
-            var posts = await _blogContext.Posts.Select(p => new Post
+            var posts = await _blogContext.BlogPosts.Select(p => new BlogPost
                {
                    PostId = p.PostId,
                    Title = p.Title,
                    Content = p.Content,
                    UserId = p.UserId,
-                   Author = p.Author 
+                   Author = p.Author,
+                   Reviewer = p.Reviewer,
+                   Status = p.Status
                }).ToListAsync();
             return posts;
-
-
-            /*
-             var result = employees.Where(e => e.Id == id).Select(e => new Employee
-            {
-                Id = e.Id,
-                Projects = e.Projects.SingleOrDefault(p => p.Key == projectKey)
-            }).SingleOrDefault();
-             */
         }
-        //Task<Post> GetByIdAsync(int postId);
+        public async Task<BlogPost> CreateAsync(BlogPost post)
+        {
+            var newPost = new BlogPost
+            {
+                Title = post.Title,
+                Content = post.Content,
+                UserId = 2,
+                StatusId = 1
+            };
+
+            _blogContext.Add(newPost);
+            await _blogContext.SaveChangesAsync();
+            return post;
+        }
+
+        public async Task<BlogPost> UpdateAsync(BlogPost post)
+        {
+            var dbPost = _blogContext.BlogPosts.Find(post.PostId); 
+            dbPost.Title = post.Title;
+            dbPost.Content = post.Content;
+            await _blogContext.SaveChangesAsync();            
+            return dbPost;
+        }
+
+        public async Task<int> DeleteAsync(int postId)
+        {
+            var dbPost = _blogContext.BlogPosts.Find(postId);            
+            _blogContext.Remove(dbPost);
+            await _blogContext.SaveChangesAsync();
+            return postId;
+        }
+
+        public async Task<BlogPost> ApproveReject(DTOPostStatus postStatus)
+        {
+            var dbPost = _blogContext.BlogPosts.Find(postStatus.PostId);
+            dbPost.StatusId = postStatus.StatusId;            
+            await _blogContext.SaveChangesAsync();
+            return dbPost;
+        }
+
+        public async Task<BlogPost> GetByIdAsync(int postId)
+        {
+            //var dbPost = await _blogContext.BlogPosts.FindAsync(postId);
+            var dbPost = await _blogContext.BlogPosts.Select(p => new BlogPost
+            {
+                PostId = p.PostId,
+                Title = p.Title,
+                Content = p.Content,
+                UserId = p.UserId,
+                Author = p.Author,
+                Reviewer = p.Reviewer,
+                Status = p.Status
+            }).FirstOrDefaultAsync();
+
+            return dbPost;
+        }
+        
     }
 }

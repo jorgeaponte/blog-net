@@ -1,31 +1,44 @@
-﻿@model List<Post>
+﻿@model List<BlogPost>
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Blog entries</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-
     <table class="table table-sm table-striped table-bordered m-2">
         <thead>
             <tr>
-                <th>Post Id</th>
+                <th>Id/Update</th>
                 <th>Author</th>
                 <th>Title</th>
                 <th>Content</th>
-                <th>Approver</th>
+                <th>Reviewer</th>
+                <th>Status</th>
+                <th>Approve/Reject</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var post in Model)
             {
             <tr>
-                <td>@post.PostId</td>
+                <td><a asp-action="UpdatePost" asp-route-postId="@post.PostId">@post.PostId</a></td>
                 <td><b>@post.Author.Name</b></td>
                 <td>@post.Title</td>
                 <td>@post.Content</td>
-                <td>@post.ApproverId</td>
+                <td>@(post.Reviewer == null ? "" : post.Reviewer.Name)</td>
+                <td>@post.Status.Description</td>
+                <td>
+                    <!--ToDo: Cambiar valores quemados -->
+                    <a asp-action="ApproveRejectPost" asp-route-postId="@post.PostId" asp-route-statusId="2">Approve</a>
+                    <br /><a asp-action="ApproveRejectPost" asp-route-postId="@post.PostId" asp-route-statusId="3">Reject</a>
+                </td>
+                <td>                
+                <form asp-action="DeletePost" method="post">
+                    <input type="hidden" value="@post.PostId" name="PostId" />
+                    <input type="submit" value="X"  />
+                </form>
+                </td>
             </tr>
             }
         </tbody>
